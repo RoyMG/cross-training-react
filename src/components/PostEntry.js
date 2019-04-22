@@ -1,6 +1,7 @@
 import React from 'react'
 import PostActions from './PostActions';
 import { Link } from 'react-router-dom'
+
 const PostEntry = ({ post }) => { 
 
   const { 
@@ -13,11 +14,11 @@ const PostEntry = ({ post }) => {
     comments,
     id
   } = post
-
+  // console.log(image)
   return (
-    <div className="post" key={id}>
-      <Link to={`/post/${id}`}>
-        <div className="post-background">
+    <div key={id} className='post'>
+      <Link to={`/post/${id}`} style={{ textDecoration: 'none', color: 'white' }}>
+        <div className="post-background" style={{ backgroundImage: `url(${image})`}}>
           <div className="post-content">
             <h3>{title}</h3>
             <div className="count">
@@ -29,7 +30,9 @@ const PostEntry = ({ post }) => {
           </div>
         </div>
       </Link>
-      <PostActions id={post.id}/>
+      <div className='post-actions'>
+        <PostActions id={post.id}/>
+      </div> 
     </div>
   )
 }

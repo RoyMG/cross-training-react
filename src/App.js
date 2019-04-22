@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { getPosts } from './helpers/getPosts';
 import Routes from './components/Routes';
 import Header from './components/Header';
 import { Fab, Icon } from '@material-ui/core'
 import './styles/app.css'
 
-class App extends Component {
+class App extends PureComponent {
   state = {
     posts: [],
   }
 
   async componentDidMount () {
     const results = await getPosts()
+    console.log(results)
     this.setState({
       posts: results,
     })

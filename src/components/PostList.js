@@ -6,7 +6,7 @@ import '../styles/posts.css'
 const PostList = ({ posts })  => {
 
   return (
-    <div>
+    <div className='list-container'>
       <FilterBy/>
       <div className='posts-list'>
         {posts.map(post => (
