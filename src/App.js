@@ -1,59 +1,32 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import { getPosts } from './helpers/getPosts';
-import PostList from './components/PostList';
+import Routes from './components/Routes';
 import Header from './components/Header';
-import FullPost from './components/FullPost';
+
+import { Fab, Icon } from '@material-ui/core'
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      posts: [],
-      post: null
-    }
-    this.handlePostClick = this.handlePostClick.bind(this)
-    this.handleBackClick = this.handleBackClick.bind(this)
+  state = {
+    posts: [],
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     const results = await getPosts()
     this.setState({
       posts: results,
     })
   }
 
-  handlePostClick(id) {
-    const { posts } = this.state
-    for (let i = 0; i < posts.length; i++) {
-      if(posts[i].id === id) {
-        this.setState({
-          post: posts[i],
-        })
-      }
-    }
-  }
-
-  handleBackClick() {
-    this.setState({
-      post: null
-    })
-  }
-
-
-
   render() {
-    const { posts, post } = this.state
+    const { posts } = this.state
+
     return (
       <div className="App">
         <Header/>
-        <div>
-          {post 
-          ? 
-          (<FullPost handleBackClick={this.handleBackClick} post={post}/>) 
-          : 
-          (<PostList handlePostClick={this.handlePostClick} posts={posts}/>)} 
-        </div>
+        <Fab color="secondary" aria-label="Edit" >
+          <Icon>edit_icon</Icon>
+        </Fab>
+        <Routes posts={posts}/>
       </div>
     );
   }

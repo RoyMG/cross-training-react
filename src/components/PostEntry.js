@@ -1,6 +1,6 @@
 import React from 'react'
 import PostActions from './PostActions';
-
+import { Link } from 'react-router-dom'
 const PostEntry = ({ post }) => { 
 
   const { 
@@ -10,12 +10,13 @@ const PostEntry = ({ post }) => {
     description, 
     publishedAt, 
     image, 
-    comments 
+    comments,
+    id
   } = post
 
   return (
-    <div className="post" key={post.id}>
-      <a>
+    <div className="post" key={id}>
+      <Link to={`/post/${id}`}>
         <div className="post-background">
           <div className="post-content">
             <h3>{title}</h3>
@@ -27,7 +28,7 @@ const PostEntry = ({ post }) => {
             <div className="postinfo"> {category}</div>
           </div>
         </div>
-      </a>
+      </Link>
       <PostActions id={post.id}/>
     </div>
   )

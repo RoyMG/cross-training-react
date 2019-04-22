@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react'
+import { Button } from '@material-ui/core'
 
 class PostActions extends PureComponent {
   
@@ -6,12 +7,12 @@ class PostActions extends PureComponent {
     return (
       <div>
         <div className="post-actions">
-          <button mat-icon-button >
+          <Button variant="contained" color="primary" >
             <mat-icon aria-label="Edit a Post">edit</mat-icon>
-          </button>
-          <button mat-icon-button>
+          </Button>
+          <Button variant="contained" color="primary">
             <mat-icon aria-label="Delete a Post">delete</mat-icon>
-          </button>
+          </Button>
         </div> 
       </div>
     )

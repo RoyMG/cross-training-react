@@ -5,13 +5,13 @@ import PostEntry from './PostEntry';
 import FilterBy from './FilterBy';
 // import FullPost from './FullPost';
 
-const PostList = ({ posts, handlePostClick })  => {
+const PostList = ({ posts })  => {
 
   return (
     <div>
       <FilterBy/>
       {posts.map(post => (
-        <div onClick={()=> handlePostClick(post.id)} key={post.id}>
+        <div key={post.id}>
           <PostEntry post={post}/>
         </div>
       ))}
