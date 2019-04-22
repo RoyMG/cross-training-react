@@ -1,20 +1,20 @@
 import React from 'react'
-// import { getPosts } from '../helpers/getPosts';
 import PostEntry from './PostEntry';
-// import PostActions from './PostActions';
 import FilterBy from './FilterBy';
-// import FullPost from './FullPost';
+import '../styles/posts.css'
 
 const PostList = ({ posts })  => {
 
   return (
     <div>
       <FilterBy/>
-      {posts.map(post => (
-        <div key={post.id}>
-          <PostEntry post={post}/>
-        </div>
-      ))}
+      <div className='posts-list'>
+        {posts.map(post => (
+          <div key={post.id} className='post-item'>
+            <PostEntry post={post}/>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

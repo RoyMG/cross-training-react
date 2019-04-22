@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { getPosts } from './helpers/getPosts';
 import Routes from './components/Routes';
 import Header from './components/Header';
-
 import { Fab, Icon } from '@material-ui/core'
+import './styles/app.css'
 
 class App extends Component {
   state = {
@@ -22,11 +22,13 @@ class App extends Component {
 
     return (
       <div className="App">
+      <div className='app'>
         <Header/>
-        <Fab color="secondary" aria-label="Edit" >
-          <Icon>edit_icon</Icon>
+        <Fab className='fab' aria-label="Edit" >
+          <Icon className='icon-mui'>edit_icon</Icon>
         </Fab>
         <Routes posts={posts}/>
+      </div>
       </div>
     );
   }
