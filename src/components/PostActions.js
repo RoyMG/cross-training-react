@@ -6,7 +6,7 @@ class PostActions extends PureComponent {
   render() {
     return (
       <div>
-        <Icon>edit_icon</Icon>
+        <Icon className="edit-icon">edit_icon</Icon>
         <Icon>delete_icon</Icon>
       </div>
     )

@@ -54,7 +54,8 @@
 }
 
 .post-detail .body .description {
-  font-size: 3.4rem;
+  width: 100%;
+  font-size: 2.3rem;
   line-height: inherit;
 }
 
@@ -64,7 +65,7 @@
 }
 
 .comments-container .comments-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 .comments-container .comment-item {
@@ -72,9 +73,9 @@
   padding: 10px;
   margin-bottom: 20px;
   display: flex;
+  border: 2px solid rgba(0, 0, 0, .09);
   background-color: white;
-  box-shadow: 0 1px 4px rgba(black,.04);
-  border: 1px solid rgba(black,.09);
+  box-shadow: 0 1px 4px rgba(0, 0, 0,.04);
 }
 
 .comments-container .comment-item .icon .material-icons {
@@ -83,17 +84,16 @@
 
 .comment-item-content {
   margin-left: 10px;
-  
 }
 
 .comment-item-content .author {
   font-weight: 600;
-  font-size: 2.5rem;
+  font-size: 1.6rem;
   margin-bottom: 10px;
 }
 
 .comment-item-content .comment {
-  font-size: 2rem;
+  font-size: 1.2rem;
 }
 
 
@@ -102,4 +102,7 @@
   width: 100%;
   margin-top: 20px;
   font-size: 4rem;
+  margin-bottom: 20px;
 }
+
+

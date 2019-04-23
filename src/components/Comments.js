@@ -5,11 +5,36 @@ import { TextField, Button } from '@material-ui/core';
 class Comments extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      newComments: '',
+      comments: []
+    }
+  }
+
+  componentDidMount() {
+    this.setState({
+      comments: this.props.comments
+    })
   }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log('HEY')
+    const newComment = {
+      id: this.props.comments.length + 1,
+      content: this.state.newComments,
+      author: 'Scooby'
+    }
+    this.props.comments.push(newComment)
+    this.setState({
+      newComments: '',
+      comments: this.props.comments
+    })
+  }
+
+  onChangeHandler = (e) => {
+    this.setState({
+      newComments:e.target.value
+    })
   }
 
   render() {
@@ -18,7 +43,7 @@ class Comments extends Component {
     <div className="comments-container">
       <h4 className="comments-title">Comments</h4>
       {comments.map(comment => (
-        <div className="comment-item" kay={comment.id}>
+        <div className="comment-item" key={comment.id}>
           <div className="icon">
             <i className="material-icons">account_circle</i>
           </div>
@@ -30,7 +55,7 @@ class Comments extends Component {
       ))}
       <form className="comment-form" onSubmit={this.handleSubmit}>
         <div>
-          <TextField multiline label="Write a comment" className='field-full-width'></TextField>
+          <TextField multiline rows="2" label="Write a comment" value={this.state.newComments} className='field-full-width' onChange={this.onChangeHandler}/>
         </div>
         <Button color="primary" variant="contained" type="submit">Add</Button>
       </form>
