@@ -57,13 +57,13 @@ class CreateModal extends Component {
       category: e.target.value
     })
   }
-  urlChangeHandler = (e) => {
+  imageChangeHandler = (e) => {
     this.setState({
       image: e.target.value
     })
   }
 
-  onSubmithandler = (e) => {
+  onSubmitHandler = (e) => {
     e.preventDefault()
     const post = {
       category: this.state.category,
@@ -88,7 +88,7 @@ class CreateModal extends Component {
           open={this.state.open}
           onClose={this.handleClose}
         >
-          <form onSubmit={this.onSubmithandler}>
+          <form onSubmit={this.onSubmitHandler}>
             <DialogTitle style={{ textAlign: 'center'}}>Create Post</DialogTitle>
             <DialogContent>
                 <TextField
