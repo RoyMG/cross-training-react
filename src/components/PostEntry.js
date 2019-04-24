@@ -14,7 +14,11 @@ const PostEntry = ({ post, changeViewHandler, deletePost, editPost }) => {
   } = post
   return (
     <div key={id} className='post'>
-      <Link to={`/post/${id}`} style={{ textDecoration: 'none', color: 'white' }} onClick={()=> changeViewHandler('full')}>
+      <Link 
+      to={`/post/${id}`} 
+      style={{ textDecoration: 'none', color: 'white' }} 
+      onClick={()=> changeViewHandler('full')}
+      >
         <div className="post-background" style={{ backgroundImage: `url(${image})`}}>
           <div className="post-content">
             <h3>{title}</h3>

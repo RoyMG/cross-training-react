@@ -29,8 +29,9 @@ class CreateModal extends PureComponent {
     }
   }
 
-  componentDidUpdate() {
-    if (this.props.editPost) {
+
+  componentDidUpdate(prevProps) {
+    if (this.props.editPost !== prevProps.editPost && this.props.editPost) {
       const { editPost } = this.props
       const post = editPost[0]
       this.setState({
@@ -40,17 +41,19 @@ class CreateModal extends PureComponent {
         category: post.category,
         image: post.image
       })
-    } else {
-      this.setState({
-        title: '',
-        shortDescription: '',
-        description: '',
-        category: '',
-        image: 'https://source.unsplash.com/random'
-      })
     }
   }
 
+
+  clearStateAfterClose = () => {
+    this.setState({
+      title: '',
+      shortDescription: '',
+      description: '',
+      category: '',
+      image: 'https://source.unsplash.com/random'
+    }, () => this.props.handleClose())
+  }
 
 
   titleChangeHandler = (e) => {
@@ -83,6 +86,7 @@ class CreateModal extends PureComponent {
 
   onSubmitHandler = (e) => {
     e.preventDefault()
+    const { addPost } = this.props
     const post = {
       category: this.state.category,
       comments: [],
@@ -92,16 +96,17 @@ class CreateModal extends PureComponent {
       image: this.state.image,
       title: this.state.title
     }
-    this.props.addPost(post)
+    addPost(post)
+    this.clearStateAfterClose()
   }
 
   render() {
-    const { status, handleClose } = this.props
+    const { status } = this.props
     return (
       <div >
         <Dialog
           className="create-modal"
-          open={status}
+          open={status || false}
           onClose={this.handleClose}
         >
           <form onSubmit={this.onSubmitHandler}>
@@ -167,10 +172,10 @@ class CreateModal extends PureComponent {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose} color="primary" type="button">
+              <Button onClick={this.clearStateAfterClose} color="primary" type="button">
                 Cancel
               </Button>
-              <Button onClick={handleClose} color="primary" variant="contained" type="submit">
+              <Button color="primary" variant="contained" type="submit">
                 Save
               </Button>
             </DialogActions>

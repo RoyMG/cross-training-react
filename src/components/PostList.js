@@ -25,9 +25,7 @@ class PostList extends Component {
     posts = filter !== 'All' ? posts.filter(post => {
       filter = filter.toLowerCase()
       post = post.category.toLowerCase()
-      if (post === filter) {
-        return post
-      }
+      return post === filter
     }) : posts
 
     return (

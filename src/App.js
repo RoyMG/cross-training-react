@@ -13,7 +13,7 @@ class App extends Component {
       posts: [],
       view: 'posts',
       editPost: '',
-      modalOpen: false,
+      openModal: false,
     }
   }
 
@@ -38,16 +38,13 @@ class App extends Component {
     posts.push(post)
     this.setState({
       posts: posts,
-      view: 'posts',
       editPost: ''
     })
   }
 
   editPost = (title) => {
     const post = this.state.posts.filter(post => {
-      if(post.title === title) {
-        return post
-      }
+      return post.title === title
     })
     this.setState({
       editPost: post
@@ -56,16 +53,14 @@ class App extends Component {
 
   deletePost = (title) => {
     const posts = this.state.posts.filter(post => {
-      if(post.title !== title) {
-        return post
-      }
+      return post.title !== title
     })
     this.setState({
       posts: posts
     })
   }
 
-  handleOpen = () => {
+  handleOpen = (action) => {
     this.setState({
       openModal: true
     })

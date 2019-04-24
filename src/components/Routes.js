@@ -28,11 +28,13 @@ const Routes = ({ posts, changeViewHandler, deletePost, editPost }) => {
       />
       {/*Dianamic routing*/}
       {posts.map((post, key)=> (
-        <div key={key}>
-          <Route path={`/post/${key+1}`} 
-          render={() => <FullPost post={post} changeViewHandler={changeViewHandler}/>}/>
-        </div>
-      ))}
+          <div key={key}>
+          <Route path={`/post/${post.id}`} 
+          render={() => <FullPost post={post} changeViewHandler={changeViewHandler}/>}
+          />
+          </div>
+        )
+      )}
     </Router>
   )
 }
