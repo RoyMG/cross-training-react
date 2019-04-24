@@ -18,26 +18,29 @@ class PostList extends Component {
   }
 
   render () {
-    const { changeViewHandler } = this.props
+    const { changeViewHandler, deletePost, editPost } = this.props
     let { posts } = this.props
     let { filter } = this.state
+    
     posts = filter !== 'All' ? posts.filter(post => {
       filter = filter.toLowerCase()
       post = post.category.toLowerCase()
-      if (post == filter) {
+      if (post === filter) {
         return post
       }
     }) : posts
 
-    console.log(posts)
-    
     return (
       <div className='list-container'>
         <FilterBy handleFilter={this.handleFilter}/>
         <div className='posts-list'>
           {posts.map(post => (
             <div key={post.id} className='post-item' >
-              <PostEntry post={post} changeViewHandler={changeViewHandler}/>
+              <PostEntry 
+              post={post} 
+              changeViewHandler={changeViewHandler} 
+              deletePost={deletePost}
+              editPost={editPost}/>
             </div>
           ))}
         </div>

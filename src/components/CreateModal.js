@@ -1,6 +1,5 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import {
-  Fab,
   Icon,
   Button,
   Input,
@@ -18,35 +17,54 @@ import {
 import '../styles/modal.css'
 import { categories } from '../utils/categories';
 
-class CreateModal extends Component {
+class CreateModal extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      open: false,
       title: '',
+      shortDescription: '',
       description: '',
       category: '',
       image: 'https://source.unsplash.com/random'
     }
   }
 
-  handleOpen = () => {
-    this.setState({
-      open: true
-    })
+  componentDidUpdate() {
+    if (this.props.editPost) {
+      const { editPost } = this.props
+      const post = editPost[0]
+      this.setState({
+        title: post.title,
+        shortDescription: post.shortDescription,
+        description: post.description,
+        category: post.category,
+        image: post.image
+      })
+    } else {
+      this.setState({
+        title: '',
+        shortDescription: '',
+        description: '',
+        category: '',
+        image: 'https://source.unsplash.com/random'
+      })
+    }
   }
 
-  handleClose = () => {
-    this.setState({
-      open: false
-    })
-  }
+
 
   titleChangeHandler = (e) => {
     this.setState({
       title: e.target.value
     })
   }
+
+  shortDescrChangeHandler = (e) => {
+    this.setState({
+      shortDescription: e.target.value
+    })
+  }
+
   descriptionChangeHandler = (e) => {
     this.setState({
       description: e.target.value
@@ -69,7 +87,7 @@ class CreateModal extends Component {
       category: this.state.category,
       comments: [],
       publishedAt: Date.now(),
-      shortDescription: '',
+      shortDescription: this.state.shortDescription,
       description: this.state.description,
       image: this.state.image,
       title: this.state.title
@@ -78,14 +96,12 @@ class CreateModal extends Component {
   }
 
   render() {
+    const { status, handleClose } = this.props
     return (
       <div >
-        <Fab className='fab' aria-label="Edit" onClick={this.handleOpen} >
-          <Icon className='icon-mui'>edit_icon</Icon>
-        </Fab>
         <Dialog
           className="create-modal"
-          open={this.state.open}
+          open={status}
           onClose={this.handleClose}
         >
           <form onSubmit={this.onSubmitHandler}>
@@ -102,6 +118,15 @@ class CreateModal extends Component {
                   />
                 <TextField
                   className="modal-field"
+                  label="Short Description"
+                  type="text"
+                  multiline
+                  value={this.state.shortDescription}
+                  onChange={this.shortDescrChangeHandler}
+                  fullWidth
+                  />
+                <TextField
+                  className="modal-field"
                   label="Description"
                   type="text"
                   multiline
@@ -109,7 +134,7 @@ class CreateModal extends Component {
                   onChange={this.descriptionChangeHandler}
                   fullWidth
                   />
-                <FormControl fullWidth style={{minWidth: '120px'}} className="modal-field">
+                <FormControl fullWidth className="modal-field">
                   <InputLabel htmlFor='category-select'>Category</InputLabel>
                   <Select
                   value={this.state.category}
@@ -142,10 +167,10 @@ class CreateModal extends Component {
                 </FormControl>
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
+              <Button onClick={handleClose} color="primary" type="button">
                 Cancel
               </Button>
-              <Button onClick={this.handleClose} color="primary" variant="contained" type="submit">
+              <Button onClick={handleClose} color="primary" variant="contained" type="submit">
                 Save
               </Button>
             </DialogActions>

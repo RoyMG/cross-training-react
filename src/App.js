@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Fab, Icon } from '@material-ui/core';
 import { getPosts } from './helpers/getPosts';
 import Routes from './components/Routes';
 import Header from './components/Header';
@@ -11,10 +12,10 @@ class App extends Component {
     this.state = {
       posts: [],
       view: 'posts',
+      editPost: '',
+      modalOpen: false,
     }
-
   }
-
 
   async componentDidMount () {
     const results = await getPosts()
@@ -23,6 +24,7 @@ class App extends Component {
       posts: results,
     })
   }
+
 
   changeViewHandler = (view) => {
     this.setState({
@@ -35,25 +37,75 @@ class App extends Component {
     post.id = posts.length+1
     posts.push(post)
     this.setState({
+      posts: posts,
+      view: 'posts',
+      editPost: ''
+    })
+  }
+
+  editPost = (title) => {
+    const post = this.state.posts.filter(post => {
+      if(post.title === title) {
+        return post
+      }
+    })
+    this.setState({
+      editPost: post
+    }, () => this.handleOpen())
+  }
+
+  deletePost = (title) => {
+    const posts = this.state.posts.filter(post => {
+      if(post.title !== title) {
+        return post
+      }
+    })
+    this.setState({
       posts: posts
     })
   }
 
+  handleOpen = () => {
+    this.setState({
+      openModal: true
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      editPost: '',
+      openModal: false
+    })
+  }
+
   render() {
-    const { view, posts } = this.state
+    const { view, posts, editPost, openModal } = this.state
     return (
       <div className="App">
-      <div className='app'>
+      <div className='app-container'>
         <Header/>
-        {view === 'posts' 
+        {view !== 'full' 
           ?
           (
-            <CreateModal addPost={this.addPost}/>
+            <Fab className='fab' aria-label="Edit" onClick={this.handleOpen} >
+              <Icon className='icon-mui'>edit_icon</Icon>
+            </Fab>
           ) 
           : 
             null
         }
-        <Routes posts={posts} changeViewHandler={this.changeViewHandler}/>
+        <CreateModal 
+        status={openModal} 
+        handleClose={this.handleClose} 
+        addPost={this.addPost} 
+        editPost={editPost}
+        />
+        <Routes 
+        posts={posts} 
+        changeViewHandler={this.changeViewHandler} 
+        editPost={this.editPost}
+        deletePost={this.deletePost}
+        />
       </div>
       </div>
     );

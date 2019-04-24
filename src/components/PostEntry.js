@@ -3,8 +3,7 @@ import PostActions from './PostActions';
 import { Link } from 'react-router-dom'
 import { Icon } from '@material-ui/core';
 
-const PostEntry = ({ post, changeViewHandler }) => { 
-
+const PostEntry = ({ post, changeViewHandler, deletePost, editPost }) => { 
   const { 
     title, 
     category, 
@@ -29,7 +28,7 @@ const PostEntry = ({ post, changeViewHandler }) => {
         </div>
       </Link>
       <div className='post-actions'>
-        <PostActions id={post.id}/>
+        <PostActions title={title} deletePost={deletePost} editPost={editPost}/>
       </div> 
     </div>
   )

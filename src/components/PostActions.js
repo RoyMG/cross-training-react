@@ -1,16 +1,14 @@
-import React, { PureComponent } from 'react'
+import React from 'react'
 import { Icon } from '@material-ui/core'
 
-class PostActions extends PureComponent {
-  
-  render() {
-    return (
-      <div>
-        <Icon className="edit-icon">edit_icon</Icon>
-        <Icon>delete_icon</Icon>
-      </div>
-    )
-  }
-}
+const PostActions = ({ title, deletePost, editPost }) => {
+
+  return (
+    <div>
+      <Icon className="edit-icon" onClick={() => editPost(title)}>edit_icon</Icon>
+      <Icon onClick={() => deletePost(title)}>delete_icon</Icon>
+    </div>
+  )
+} 
 
 export default PostActions
