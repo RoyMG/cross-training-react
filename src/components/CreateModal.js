@@ -21,7 +21,9 @@ class CreateModal extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {
+      id: '',
       title: '',
+      publishedAt: '',
       shortDescription: '',
       description: '',
       category: '',
@@ -35,6 +37,9 @@ class CreateModal extends PureComponent {
       const { editPost } = this.props
       const post = editPost[0]
       this.setState({
+        id: post.id,
+        comments: post.comments,
+        publishedAt: post.publishedAt,
         title: post.title,
         shortDescription: post.shortDescription,
         description: post.description,
@@ -47,7 +52,9 @@ class CreateModal extends PureComponent {
 
   clearStateAfterClose = () => {
     this.setState({
+      id: '',
       title: '',
+      publishedAt: '',
       shortDescription: '',
       description: '',
       category: '',
@@ -88,6 +95,7 @@ class CreateModal extends PureComponent {
     e.preventDefault()
     const { addPost } = this.props
     const post = {
+      id: this.state.id,
       category: this.state.category,
       comments: [],
       publishedAt: Date.now(),
