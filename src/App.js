@@ -32,35 +32,46 @@ class App extends Component {
     })
   }
 
-  addPost = (post) => {
+  addPost = (newPost) => {
     const posts = this.state.posts
-    post.id = posts.length+1
-    posts.push(post)
-    this.setState({
-      posts: posts,
-      editPost: ''
-    })
+    const isEdit = posts.find(post => post.id === newPost.id)
+    if (isEdit) {
+      const modPosts = posts.map(post => {
+        return post.id === newPost.id ? newPost : post
+      })
+      this.setState({
+        posts: modPosts,
+        editPost: ''
+      })
+    } else {
+      newPost.id = Math.random() * 10000
+      posts.push(newPost)
+      this.setState({
+        posts: posts,
+        editPost: ''
+      })
+    }
   }
 
-  editPost = (title) => {
+  editPost = (id) => {
     const post = this.state.posts.filter(post => {
-      return post.title === title
+      return post.id === id
     })
     this.setState({
       editPost: post
     }, () => this.handleOpen())
   }
 
-  deletePost = (title) => {
+  deletePost = (id) => {
     const posts = this.state.posts.filter(post => {
-      return post.title !== title
+      return post.id !== id
     })
     this.setState({
       posts: posts
     })
   }
 
-  handleOpen = (action) => {
+  handleOpen = () => {
     this.setState({
       openModal: true
     })

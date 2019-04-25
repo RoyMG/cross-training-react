@@ -32,7 +32,7 @@ const PostEntry = ({ post, changeViewHandler, deletePost, editPost }) => {
         </div>
       </Link>
       <div className='post-actions'>
-        <PostActions title={title} deletePost={deletePost} editPost={editPost}/>
+        <PostActions id={id} deletePost={deletePost} editPost={editPost}/>
       </div> 
     </div>
   )
