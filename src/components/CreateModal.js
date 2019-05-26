@@ -20,6 +20,7 @@ import { categories } from '../utils/categories';
 class CreateModal extends PureComponent {
   constructor(props) {
     super(props)
+    const ranImageQuery = Math.random() * 100
     this.state = {
       id: '',
       title: '',
@@ -27,7 +28,7 @@ class CreateModal extends PureComponent {
       shortDescription: '',
       description: '',
       category: '',
-      image: 'https://source.unsplash.com/random'
+      image: `https://source.unsplash.com/random?sig=${ranImageQuery}`
     }
   }
 
@@ -51,6 +52,7 @@ class CreateModal extends PureComponent {
 
 
   clearStateAfterClose = () => {
+    const ranImageQuery = Math.random() * 100
     this.setState({
       id: '',
       title: '',
@@ -58,36 +60,13 @@ class CreateModal extends PureComponent {
       shortDescription: '',
       description: '',
       category: '',
-      image: 'https://source.unsplash.com/random'
+      image: `https://source.unsplash.com/random?sig=${ranImageQuery}`
     }, () => this.props.handleClose())
   }
 
-
-  titleChangeHandler = (e) => {
+  handleChange = (e) => {
     this.setState({
-      title: e.target.value
-    })
-  }
-
-  shortDescrChangeHandler = (e) => {
-    this.setState({
-      shortDescription: e.target.value
-    })
-  }
-
-  descriptionChangeHandler = (e) => {
-    this.setState({
-      description: e.target.value
-    })
-  }
-  selectChangeHandler = (e) => {
-    this.setState({
-      category: e.target.value
-    })
-  }
-  imageChangeHandler = (e) => {
-    this.setState({
-      image: e.target.value
+      [e.target.name]: e.target.value
     })
   }
 
@@ -120,64 +99,69 @@ class CreateModal extends PureComponent {
           <form onSubmit={this.onSubmitHandler}>
             <DialogTitle style={{ textAlign: 'center'}}>Create Post</DialogTitle>
             <DialogContent>
-                <TextField
-                  className="modal-field"
-                  autoFocus
-                  label="Title"
-                  type="text"
-                  value={this.state.title}
-                  onChange={this.titleChangeHandler}
-                  fullWidth
-                  />
-                <TextField
-                  className="modal-field"
-                  label="Short Description"
-                  type="text"
-                  multiline
-                  value={this.state.shortDescription}
-                  onChange={this.shortDescrChangeHandler}
-                  fullWidth
-                  />
-                <TextField
-                  className="modal-field"
-                  label="Description"
-                  type="text"
-                  multiline
-                  value={this.state.description}
-                  onChange={this.descriptionChangeHandler}
-                  fullWidth
-                  />
-                <FormControl fullWidth className="modal-field">
-                  <InputLabel htmlFor='category-select'>Category</InputLabel>
-                  <Select
+              <TextField
+                name='title'
+                className="modal-field"
+                autoFocus
+                label="Title"
+                type="text"
+                value={this.state.title}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name='shortDescription'
+                className="modal-field"
+                label="Short Description"
+                type="text"
+                multiline
+                value={this.state.shortDescription}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                name='description'
+                className="modal-field"
+                label="Description"
+                type="text"
+                multiline
+                value={this.state.description}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <FormControl fullWidth className="modal-field">
+                <InputLabel htmlFor='category-select'>Category</InputLabel>
+                <Select
+                  name='category'
                   value={this.state.category}
-                  onChange={this.selectChangeHandler}
+                  onChange={this.handleChange}
                   input={<Input id="category-select" />}
                   fullWidth
-                  >
-                    {categories.map((category, key) => (
-                      <MenuItem 
+                >
+                  {categories.map((category, key) => (
+                    <MenuItem 
                       key={key} 
                       value={`${category}`}
-                      >
-                        {category}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth className="modal-field">
-                  <InputLabel htmlFor="image-url">Image URL</InputLabel>
-                  <Input
-                  id="image-url"
-                  value={this.state.image}
-                  onChange={this.imageChangeHandler}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <Icon>link</Icon>
-                    </InputAdornment>
-                  }
-                  />
-                </FormControl>
+                    >
+                      {category}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl fullWidth className="modal-field">
+                <InputLabel htmlFor="image-url">Image URL</InputLabel>
+                <Input
+                name='image'
+                id="image-url"
+                value={this.state.image}
+                onChange={this.handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <Icon>link</Icon>
+                  </InputAdornment>
+                }
+                />
+              </FormControl>
             </DialogContent>
             <DialogActions>
               <Button onClick={this.clearStateAfterClose} color="primary" type="button">
