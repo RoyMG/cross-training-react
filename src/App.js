@@ -19,7 +19,6 @@ class App extends Component {
 
   async componentDidMount () {
     const results = await getPosts()
-    console.log(results)
     this.setState({
       posts: results,
     })
