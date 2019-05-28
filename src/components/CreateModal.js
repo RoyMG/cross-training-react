@@ -108,6 +108,7 @@ class CreateModal extends PureComponent {
                 value={this.state.title}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 name='shortDescription'
@@ -118,6 +119,7 @@ class CreateModal extends PureComponent {
                 value={this.state.shortDescription}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <TextField
                 name='description'
@@ -128,6 +130,7 @@ class CreateModal extends PureComponent {
                 value={this.state.description}
                 onChange={this.handleChange}
                 fullWidth
+                required
               />
               <FormControl fullWidth className="modal-field">
                 <InputLabel htmlFor='category-select'>Category</InputLabel>

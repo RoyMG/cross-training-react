@@ -51,7 +51,7 @@ class App extends Component {
         editPost: ''
       })
     } else {
-      newPost.id = Math.random() * 10000
+      newPost.id = newPost.title
       posts.push(newPost)
       this.setState({
         posts: posts,
