@@ -100,9 +100,9 @@ class App extends Component {
         {view !== 'full' 
           ?
           (
-              <Fab style={createBttnStyle} className='fab' aria-label="Edit" onClick={this.handleOpen} >
-                <Icon className='icon-mui'>edit_icon</Icon>
-              </Fab>
+            <Fab style={createBttnStyle} aria-label="Edit" onClick={this.handleOpen} >
+              <Icon className='icon-mui'>edit_icon</Icon>
+            </Fab>
           ) 
           : 
             null

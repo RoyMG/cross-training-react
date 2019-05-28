@@ -2,14 +2,6 @@
   font-family: "Source Sans Pro", sans-serif;
 }
 
-.fab {
-  background-color: coral;
-  position: fixed;
-  top: 138px;
-  right: 20px;
-  z-index: 1;
-}
-
 .icon-mui {
   color:white;
 }
