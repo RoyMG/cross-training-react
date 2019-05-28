@@ -6,6 +6,14 @@ import Header from './components/Header';
 import CreateModal from './components/CreateModal';
 import './styles/app.css'
 
+const createBttnStyle = {
+  backgroundColor: 'coral', 
+  position: 'fixed',
+  top: '138px',
+  right: '20px',
+  zIndex: '1'
+}
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -92,9 +100,9 @@ class App extends Component {
         {view !== 'full' 
           ?
           (
-            <Fab className='fab' aria-label="Edit" onClick={this.handleOpen} >
-              <Icon className='icon-mui'>edit_icon</Icon>
-            </Fab>
+              <Fab style={createBttnStyle} className='fab' aria-label="Edit" onClick={this.handleOpen} >
+                <Icon className='icon-mui'>edit_icon</Icon>
+              </Fab>
           ) 
           : 
             null
