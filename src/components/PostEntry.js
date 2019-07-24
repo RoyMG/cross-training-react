@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 import { Icon } from '@material-ui/core';
 import PostActions from './PostActions';
 
-const PostEntry = ({ post, changeViewHandler, deletePost, editPost }) => {
+const PostEntry = ({ post, deletePost, editPost }) => {
   const { title, category, shortDescription, image, comments, id } = post;
   return (
     <div key={id} className="post">
       <Link
         to={`/post/${id}`}
         style={{ textDecoration: 'none', color: 'white' }}
-        onClick={() => changeViewHandler('full')}
       >
         <div
           className="post-background"
