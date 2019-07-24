@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-export const getPosts = () => {
-  return axios.get('https://private-c3edb-postsmock.apiary-mock.com/posts')
-  .then(data => {
-    const results = data.data.map(post => {
-      post.id = post.title
-      return post
+export const getPosts = () =>
+  axios
+    .get('https://private-c3edb-postsmock.apiary-mock.com/posts')
+    .then(data => {
+      const results = data.data.map(post => {
+        post.id = post.title;
+        return post;
+      });
+      return results;
     })
-    return results
-  })
-  .catch(err => console.log(err))
-}
+    .catch(err => console.log(err));

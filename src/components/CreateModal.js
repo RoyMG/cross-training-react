@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 import {
   Icon,
   Button,
@@ -13,140 +13,151 @@ import {
   DialogTitle,
   FormControl,
   InputAdornment,
-} from '@material-ui/core'
-import '../styles/modal.css'
+} from '@material-ui/core';
+import '../styles/modal.css';
 import { categories } from '../utils/categories';
 
 class CreateModal extends PureComponent {
   constructor(props) {
-    super(props)
-    const ranImageQuery = Math.random() * 100
+    super(props);
+    const ranImageQuery = Math.random() * 100;
     this.state = {
       id: '',
       title: '',
-      publishedAt: '',
       shortDescription: '',
       description: '',
       category: '',
-      image: `https://source.unsplash.com/random?sig=${ranImageQuery}`
-    }
+      image: `https://source.unsplash.com/random?sig=${ranImageQuery}`,
+    };
   }
 
-
   componentDidUpdate(prevProps) {
-    if (this.props.editPost !== prevProps.editPost && this.props.editPost) {
-      const { editPost } = this.props
-      const post = editPost[0]
+    const { editPost } = this.props;
+    if (editPost !== prevProps.editPost && editPost) {
+      const post = editPost[0];
       this.setState({
         id: post.id,
-        comments: post.comments,
-        publishedAt: post.publishedAt,
         title: post.title,
         shortDescription: post.shortDescription,
         description: post.description,
         category: post.category,
-        image: post.image
-      })
+        image: post.image,
+      });
     }
   }
-
 
   clearStateAfterClose = () => {
-    const ranImageQuery = Math.random() * 100
-    this.setState({
-      id: '',
-      title: '',
-      publishedAt: '',
-      shortDescription: '',
-      description: '',
-      category: '',
-      image: `https://source.unsplash.com/random?sig=${ranImageQuery}`
-    }, () => this.props.handleClose())
-  }
+    const { handleClose } = this.props;
+    const ranImageQuery = Math.random() * 100;
+    this.setState(
+      {
+        id: '',
+        title: '',
+        shortDescription: '',
+        description: '',
+        category: '',
+        image: `https://source.unsplash.com/random?sig=${ranImageQuery}`,
+      },
+      () => handleClose()
+    );
+  };
 
-  handleChange = (e) => {
+  handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  onSubmitHandler = (e) => {
-    e.preventDefault()
-    const { addPost } = this.props
+  onSubmitHandler = e => {
+    e.preventDefault();
+    const { addPost } = this.props;
+    const {
+      id,
+      category,
+      shortDescription,
+      description,
+      image,
+      title,
+    } = this.state;
+
     const post = {
-      id: this.state.id,
-      category: this.state.category,
-      comments: [],
-      publishedAt: Date.now(),
-      shortDescription: this.state.shortDescription,
-      description: this.state.description,
-      image: this.state.image,
-      title: this.state.title
-    }
-    addPost(post)
-    this.clearStateAfterClose()
-  }
+      id,
+      category,
+      shortDescription,
+      description,
+      image,
+      title,
+    };
+    addPost(post);
+    this.clearStateAfterClose();
+  };
 
   render() {
-    const { status } = this.props
+    const { status } = this.props;
+    const {
+      title,
+      shortDescription,
+      description,
+      category,
+      image,
+    } = this.state;
     return (
-      <div >
+      <div>
         <Dialog
           className="create-modal"
           open={status || false}
           onClose={this.handleClose}
         >
           <form onSubmit={this.onSubmitHandler}>
-            <DialogTitle style={{ textAlign: 'center'}}>Create Post</DialogTitle>
+            <DialogTitle style={{ textAlign: 'center' }}>
+              Create Post
+            </DialogTitle>
             <DialogContent>
               <TextField
-                name='title'
+                name="title"
                 className="modal-field"
                 autoFocus
                 label="Title"
                 type="text"
-                value={this.state.title}
+                value={title}
                 onChange={this.handleChange}
                 fullWidth
                 required
               />
               <TextField
-                name='shortDescription'
+                name="shortDescription"
                 className="modal-field"
                 label="Short Description"
                 type="text"
                 multiline
-                value={this.state.shortDescription}
+                value={shortDescription}
                 onChange={this.handleChange}
                 fullWidth
                 required
               />
               <TextField
-                name='description'
+                name="description"
                 className="modal-field"
                 label="Description"
                 type="text"
                 multiline
-                value={this.state.description}
+                value={description}
                 onChange={this.handleChange}
                 fullWidth
                 required
               />
               <FormControl fullWidth className="modal-field">
-                <InputLabel htmlFor='category-select'>Category</InputLabel>
+                <InputLabel htmlFor="category-select">Category</InputLabel>
                 <Select
-                  name='category'
-                  value={this.state.category}
+                  name="category"
+                  value={category}
                   onChange={this.handleChange}
                   input={<Input id="category-select" />}
                   fullWidth
                 >
-                  {categories.map((category, key) => (
-                    <MenuItem 
-                      key={key} 
-                      value={`${category}`}
-                    >
-                      {category}
+                  {categories.map((categ, key) => (
+                    <MenuItem key={key} value={`${categ}`}>
+                      {categ}
                     </MenuItem>
                   ))}
                 </Select>
@@ -154,20 +165,24 @@ class CreateModal extends PureComponent {
               <FormControl fullWidth className="modal-field">
                 <InputLabel htmlFor="image-url">Image URL</InputLabel>
                 <Input
-                name='image'
-                id="image-url"
-                value={this.state.image}
-                onChange={this.handleChange}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <Icon>link</Icon>
-                  </InputAdornment>
-                }
+                  name="image"
+                  id="image-url"
+                  value={image}
+                  onChange={this.handleChange}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <Icon>link</Icon>
+                    </InputAdornment>
+                  }
                 />
               </FormControl>
             </DialogContent>
             <DialogActions>
-              <Button onClick={this.clearStateAfterClose} color="primary" type="button">
+              <Button
+                onClick={this.clearStateAfterClose}
+                color="primary"
+                type="button"
+              >
                 Cancel
               </Button>
               <Button color="primary" variant="contained" type="submit">
@@ -177,9 +192,8 @@ class CreateModal extends PureComponent {
           </form>
         </Dialog>
       </div>
-      
-    )
+    );
   }
 }
 
-export default CreateModal
+export default CreateModal;
