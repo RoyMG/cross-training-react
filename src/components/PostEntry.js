@@ -1,25 +1,21 @@
-import React from 'react'
-import PostActions from './PostActions';
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Icon } from '@material-ui/core';
+import PostActions from './PostActions';
 
-const PostEntry = ({ post, changeViewHandler, deletePost, editPost }) => { 
-  const { 
-    title, 
-    category, 
-    shortDescription, 
-    image, 
-    comments,
-    id
-  } = post
+const PostEntry = ({ post, changeViewHandler, deletePost, editPost }) => {
+  const { title, category, shortDescription, image, comments, id } = post;
   return (
-    <div key={id} className='post'>
-      <Link 
-      to={`/post/${id}`} 
-      style={{ textDecoration: 'none', color: 'white' }} 
-      onClick={()=> changeViewHandler('full')}
+    <div key={id} className="post">
+      <Link
+        to={`/post/${id}`}
+        style={{ textDecoration: 'none', color: 'white' }}
+        onClick={() => changeViewHandler('full')}
       >
-        <div className="post-background" style={{ backgroundImage: `url(${image})`}}>
+        <div
+          className="post-background"
+          style={{ backgroundImage: `url(${image})` }}
+        >
           <div className="post-content">
             <h3>{title}</h3>
             <div className="count">
@@ -31,11 +27,11 @@ const PostEntry = ({ post, changeViewHandler, deletePost, editPost }) => {
           </div>
         </div>
       </Link>
-      <div className='post-actions'>
-        <PostActions id={id} deletePost={deletePost} editPost={editPost}/>
-      </div> 
+      <div className="post-actions">
+        <PostActions id={id} deletePost={deletePost} editPost={editPost} />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default PostEntry
+export default PostEntry;
