@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
-import { Fab, Icon } from '@material-ui/core';
 import { getPosts } from './helpers/getPosts';
 import Routes from './components/Routes';
 import Header from './components/Header';
 import CreateModal from './components/CreateModal';
 import './styles/app.css';
 
-const createBttnStyle = {
-  backgroundColor: 'coral',
-  position: 'fixed',
-  top: '138px',
-  right: '20px',
-  zIndex: '1',
-};
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       posts: [],
-      view: 'posts',
       editPost: '',
       openModal: false,
     };
@@ -31,12 +21,6 @@ class App extends Component {
       posts: results,
     });
   }
-
-  changeViewHandler = view => {
-    this.setState({
-      view,
-    });
-  };
 
   addPost = newPost => {
     const { posts } = this.state;
@@ -92,20 +76,11 @@ class App extends Component {
   };
 
   render() {
-    const { view, posts, editPost, openModal } = this.state;
+    const { posts, editPost, openModal } = this.state;
     return (
       <div className="App">
         <div className="app-container">
           <Header />
-          {view !== 'full' ? (
-            <Fab
-              style={createBttnStyle}
-              aria-label="Edit"
-              onClick={this.handleOpen}
-            >
-              <Icon className="icon-mui">edit_icon</Icon>
-            </Fab>
-          ) : null}
           <CreateModal
             status={openModal}
             handleClose={this.handleClose}
@@ -114,9 +89,9 @@ class App extends Component {
           />
           <Routes
             posts={posts}
-            changeViewHandler={this.changeViewHandler}
             editPost={this.editPost}
             deletePost={this.deletePost}
+            handleOpen={this.handleOpen}
           />
         </div>
       </div>

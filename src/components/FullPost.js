@@ -4,12 +4,12 @@ import { Icon, Fab } from '@material-ui/core';
 import Comments from './Comments';
 import '../styles/fullpost.css';
 
-const FullPost = ({ post, changeViewHandler }) => {
+const FullPost = ({ post }) => {
   const { title, description, image, comments } = post;
   return (
     <div className="post-detail">
       <div className="hero-banner" style={{ backgroundImage: `url(${image})` }}>
-        <Link to="/posts" onClick={() => changeViewHandler('posts')}>
+        <Link to="/">
           <Fab className="fab-back-icon">
             <Icon className="back-icon">chevron_left</Icon>
           </Fab>
