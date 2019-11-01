@@ -1,38 +1,26 @@
 import React, { PureComponent } from 'react';
 import { Grid } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
-import { categories } from '../utils/categories';
+import { categories } from '../utils/categories'; // this are the unchaged/static categories we'll use for this project...
 
 class FilterBy extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-      highLight: 'All',
-    };
+    this.state = {};
   }
 
-  componentDidUpdate() {
-    const { handleFilter } = this.props;
-    const { highLight } = this.state;
-    handleFilter(highLight);
-  }
-
-  handleHighLight = category => {
-    this.setState({
-      highLight: category,
-    });
-  };
+  // You should make a function to handle which filter is seletced
 
   render() {
-    const { highLight } = this.state;
     return (
       <Grid container className="btns-container">
-        <ToggleButtonGroup value={highLight}>
+        <ToggleButtonGroup>
+          {/* ...and we'll dynamically render them */}
           {categories.map((category, i) => (
             <ToggleButton
               value={category}
               key={i}
-              onClick={() => this.handleHighLight(category)}
+              onClick={() => {}}
               className="category-button"
             >
               {category}

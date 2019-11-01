@@ -5,94 +5,43 @@ import Header from './components/Header';
 import CreateModal from './components/CreateModal';
 import './styles/app.css';
 
+/* This is your main component, the logic and brain of most of your 
+components, your intelligent home. Use the functions we left for 
+you to make your app work. Also, check the other components, 
+youll see some tips in there. Remeber to pass down props */
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
-      editPost: '',
-      openModal: false,
+      // posts: [],
+      // editPost: '',
+      // openModal: false,
     };
   }
 
   async componentDidMount() {
-    const results = await getPosts();
-    this.setState({
-      posts: results,
-    });
+    /* in here you'll make async calls, we are using async await:
+    this is a great article to understand this utility that js has
+    https://medium.com/javascript-in-plain-english/javascript-async-await-and-promises-explained-like-youre-five-years-old-61733751e9a5 */
   }
 
-  addPost = newPost => {
-    const { posts } = this.state;
-    const isEdit = posts.find(post => post.id === newPost.id);
-    if (isEdit) {
-      const modPosts = posts.map(post =>
-        post.id === newPost.id ? newPost : post
-      );
-      this.setState({
-        posts: modPosts,
-        editPost: '',
-      });
-    } else {
-      newPost.id = newPost.title;
-      posts.push(newPost);
-      this.setState({
-        posts,
-        editPost: '',
-      });
-    }
-  };
+  addPost = newPost => {};
 
-  editPost = id => {
-    const { posts } = this.state;
-    const post = posts.filter(inPost => inPost.id === id);
-    this.setState(
-      {
-        editPost: post,
-      },
-      () => this.handleOpen()
-    );
-  };
+  editPost = id => {};
 
-  deletePost = id => {
-    const { posts } = this.state;
-    const modPosts = posts.filter(inPost => inPost.id !== id);
-    this.setState({
-      posts: modPosts,
-    });
-  };
+  deletePost = id => {};
 
-  handleOpen = () => {
-    this.setState({
-      openModal: true,
-    });
-  };
+  handleOpen = () => {};
 
-  handleClose = () => {
-    this.setState({
-      editPost: '',
-      openModal: false,
-    });
-  };
+  handleClose = () => {};
 
   render() {
-    const { posts, editPost, openModal } = this.state;
     return (
       <div className="App">
         <div className="app-container">
           <Header />
-          <CreateModal
-            status={openModal}
-            handleClose={this.handleClose}
-            addPost={this.addPost}
-            editPost={editPost}
-          />
-          <Routes
-            posts={posts}
-            editPost={this.editPost}
-            deletePost={this.deletePost}
-            handleOpen={this.handleOpen}
-          />
+          <CreateModal />
+          <Routes />
         </div>
       </div>
     );

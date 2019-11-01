@@ -1,11 +1,7 @@
 import React from 'react';
 import '../styles/header.css';
-
-const Header = () => (
-  <div className="page-title">
-    <div className="title-helper">Making your Life Easier</div>
-    <h2>Discovering the World</h2>
-  </div>
-);
+/* time for some reverse engineering, 
+checkout the styling in the header.css styling sheet to make the header */
+const Header = () => <div />;
 
 export default Header;
