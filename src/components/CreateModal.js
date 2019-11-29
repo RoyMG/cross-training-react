@@ -87,6 +87,7 @@ class CreateModal extends PureComponent {
       description,
       image,
       title,
+      comments: [],
     };
     addPost(post);
     this.clearStateAfterClose();
