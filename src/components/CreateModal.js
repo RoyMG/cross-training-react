@@ -12,7 +12,7 @@ import {
   InputAdornment,
   MenuItem,
   Button,
-  Select,
+  Select
 } from '@material-ui/core';
 
 class CreateModal extends PureComponent {

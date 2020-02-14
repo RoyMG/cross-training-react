@@ -10,7 +10,7 @@ const createBttnStyle = {
   position: 'fixed',
   top: '138px',
   right: '20px',
-  zIndex: '1',
+  zIndex: '1'
 };
 
 // this component is your Post entry container, your list of posts
@@ -26,6 +26,9 @@ class PostList extends Component {
   handleFilter = category => {};
 
   render() {
+    const { posts } = this.props;
+    console.log(this.props);
+    console.log(posts);
     return (
       <div className="list-container">
         <Fab style={createBttnStyle} aria-label="Edit" onClick={() => {}}>
@@ -33,7 +36,11 @@ class PostList extends Component {
         </Fab>
         <FilterBy handleFilter={this.handleFilter} />
         <div className="posts-list">
-          {/* tip: dynamically render your post entries */}
+          {posts.map(posts => (
+            <div key={posts.id} className="post-item">
+              <PostEntry post={posts} />
+            </div>
+          ))}
         </div>
       </div>
     );
