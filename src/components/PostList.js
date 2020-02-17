@@ -31,7 +31,7 @@ class PostList extends Component {
 
   render() {
     let { posts } = this.props;
-    const { deletePost } = this.props;
+    const { deletePost, handleOpen } = this.props;
     let { filter } = this.state;
     posts =
       filter !== 'All'
@@ -44,7 +44,7 @@ class PostList extends Component {
 
     return (
       <div className="list-container">
-        <Fab style={createBttnStyle} aria-label="Edit" onClick={() => {}}>
+        <Fab style={createBttnStyle} aria-label="Edit" onClick={handleOpen}>
           <Icon className="icon-mui">edit_icon</Icon>
         </Fab>
         <FilterBy handleFilter={this.handleFilter} />

@@ -24,13 +24,12 @@ class CreateModal extends PureComponent {
     const ranImageQuery = Math.random() * 100;
     // so this is your modal state, we'll leave that in for you =)
     this.state = {
-      //   id: '',
-      //   title: '',
-      //   shortDescription: '',
-      //   description: '',
-      //   category: '',
-      //   image: `https://source.unsplash.com/random?sig=${ranImageQuery}`,
-      // };
+      id: '',
+      title: '',
+      shortDescription: '',
+      description: '',
+      category: '',
+      image: `https://source.unsplash.com/random?sig=${ranImageQuery}`
     };
   }
 
@@ -44,6 +43,14 @@ class CreateModal extends PureComponent {
   what do you want to do after someone submits? think "outside the component"... */
 
   render() {
+    const { status } = this.props;
+    const {
+      title,
+      shortDescription,
+      description,
+      category,
+      image
+    } = this.state;
     return (
       /* we'll help you out with the styling and Material UI components my friend. 
       Feel free to erase everything and make your own ;). 
@@ -56,7 +63,7 @@ class CreateModal extends PureComponent {
         When do you want to open the modal? how do you do this progrmatically? 
         Tip: This must be a boolean, true will open it...
         */}
-        <Dialog className="create-modal" open={false}>
+        <Dialog className="create-modal" open={status || false}>
           <form>
             <DialogTitle style={{ textAlign: 'center' }}>
               Create Post

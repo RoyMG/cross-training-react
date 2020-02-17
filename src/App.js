@@ -21,9 +21,9 @@ class App extends Component {
       userName: 'asd',
       inptPass: '',
       userPass: '123',
-      isUserNoLogged: true
+      isUserNoLogged: true,
       // editPost: '',
-      // openModal: false,
+      openModal: false
     };
   }
 
@@ -46,7 +46,11 @@ class App extends Component {
     this.setState({ posts: modPosts });
   };
 
-  handleOpen = () => {};
+  handleOpen = () => {
+    this.setState({
+      openModal: true
+    });
+  };
 
   handleClose = () => {};
 
@@ -68,6 +72,7 @@ class App extends Component {
   };
 
   render() {
+    const { posts, openModal } = this.state;
     const { isUserNoLogged } = this.state;
     return (
       <div className="App">
@@ -79,9 +84,12 @@ class App extends Component {
         ) : (
           <div className="app-container">
             <Header />
-            <PostList posts={this.state.posts} deletePost={this.deletePost} />
-            <CreateModal />
-            <Routes />
+            <CreateModal status={openModal} />
+            <Routes
+              posts={posts}
+              deletePost={this.deletePost}
+              handleOpen={this.handleOpen}
+            />
           </div>
         )}
       </div>
