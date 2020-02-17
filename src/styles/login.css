@@ -1,0 +1,11 @@
+.login-wrapper {
+  height: 100vh;
+  text-align: center;
+}
+.login-wrapper div {
+  margin: 10px;
+}
+
+.login-wrapper div label {
+  margin-right: 20px;
+}

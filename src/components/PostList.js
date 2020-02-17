@@ -18,17 +18,30 @@ class PostList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // filter: 'All',
+      filter: 'All'
     };
   }
 
   // we'll leave this in for you, also we'll pass it down to FilterBy component =)
-  handleFilter = category => {};
+  handleFilter = category => {
+    this.setState({
+      filter: category
+    });
+  };
 
   render() {
-    const { posts } = this.props;
-    console.log(this.props);
-    console.log(posts);
+    let { posts } = this.props;
+    const { deletePost } = this.props;
+    let { filter } = this.state;
+    posts =
+      filter !== 'All'
+        ? posts.filter(post => {
+            const postCat = post.category.toLowerCase();
+            filter = filter.toLowerCase();
+            return postCat === filter;
+          })
+        : posts;
+
     return (
       <div className="list-container">
         <Fab style={createBttnStyle} aria-label="Edit" onClick={() => {}}>
@@ -38,7 +51,7 @@ class PostList extends Component {
         <div className="posts-list">
           {posts.map(posts => (
             <div key={posts.id} className="post-item">
-              <PostEntry post={posts} />
+              <PostEntry post={posts} deletePost={deletePost} />
             </div>
           ))}
         </div>

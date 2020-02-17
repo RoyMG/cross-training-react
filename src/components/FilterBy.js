@@ -6,10 +6,22 @@ import { categories } from '../utils/categories'; // this are the unchaged/stati
 class FilterBy extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { highLight: 'All' };
   }
 
   // You should make a function to handle which filter is seletced
+
+  componentDidUpdate() {
+    const { handleFilter } = this.props;
+    const { highLight } = this.state;
+    handleFilter(highLight);
+  }
+
+  handleHighLight = category => {
+    this.setState({
+      highLight: category
+    });
+  };
 
   render() {
     return (
@@ -20,7 +32,9 @@ class FilterBy extends PureComponent {
             <ToggleButton
               value={category}
               key={i}
-              onClick={() => {}}
+              onClick={() => {
+                this.handleHighLight(category);
+              }}
               className="category-button"
             >
               {category}

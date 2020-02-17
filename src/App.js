@@ -5,6 +5,7 @@ import Header from './components/Header';
 import CreateModal from './components/CreateModal';
 import FilterBy from './components/FilterBy';
 import PostList from './components/PostList';
+import Login from './components/Login/Login';
 import './styles/app.css';
 
 /* This is your main component, the logic and brain of most of your 
@@ -15,7 +16,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      inptUser: '',
+      userName: 'asd',
+      inptPass: '',
+      userPass: '123',
+      isUserNoLogged: true
       // editPost: '',
       // openModal: false,
     };
@@ -34,21 +40,50 @@ class App extends Component {
 
   editPost = id => {};
 
-  deletePost = id => {};
+  deletePost = id => {
+    const { posts } = this.state;
+    const modPosts = posts.filter(delPost => delPost.id !== id);
+    this.setState({ posts: modPosts });
+  };
 
   handleOpen = () => {};
 
   handleClose = () => {};
 
+  handleLogin = () => {
+    const { inptPass, inptUser, userName, userPass } = this.state;
+    if (inptUser === userName && inptPass === userPass)
+      this.setState({ isUserNoLogged: false });
+  };
+
+  handleChange = event => {
+    // console.log(event.target.id);
+    let inptfld = event.target.id;
+    if (inptfld === 'inptUser') {
+      this.setState({ inptUser: event.target.value });
+    }
+    if (inptfld === 'inptPass') {
+      this.setState({ inptPass: event.target.value });
+    }
+  };
+
   render() {
+    const { isUserNoLogged } = this.state;
     return (
       <div className="App">
-        <div className="app-container">
-          <Header />
-          <PostList posts={this.state.posts} />
-          <CreateModal />
-          <Routes />
-        </div>
+        {isUserNoLogged ? (
+          <Login
+            handleLogin={this.handleLogin}
+            handleChange={this.handleChange}
+          />
+        ) : (
+          <div className="app-container">
+            <Header />
+            <PostList posts={this.state.posts} deletePost={this.deletePost} />
+            <CreateModal />
+            <Routes />
+          </div>
+        )}
       </div>
     );
   }
