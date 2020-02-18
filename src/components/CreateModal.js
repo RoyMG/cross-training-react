@@ -14,6 +14,7 @@ import {
   Button,
   Select
 } from '@material-ui/core';
+import { categories } from '../utils/categories';
 
 class CreateModal extends PureComponent {
   constructor(props) {
@@ -35,11 +36,54 @@ class CreateModal extends PureComponent {
 
   // component must mount with selected post data, try componentDidMount
 
-  clearStateAfterClose = () => {}; // its important to clear the state after closing the modal, what do you want to do after someone navigates out of the modal
+  clearStateAfterClose = () => {
+    const { handleClose } = this.props;
+    const ranImageQuery = Math.random() * 100;
+    this.setState(
+      {
+        id: '',
+        title: '',
+        shortDescription: '',
+        description: '',
+        category: '',
+        image: `https://source.unsplash.com/random?sig=${ranImageQuery}`
+      },
+      () => handleClose()
+    );
+    // handleClose();
+  }; // its important to clear the state after closing the modal, what do you want to do after someone navigates out of the modal
 
-  handleChange = () => {}; // this must be your function to handle changes on inputs, ask yourself where should you store the new inputs and how?
+  handleChange = e => {
+    // console.log(e.target.name);
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }; // this must be your function to handle changes on inputs, ask yourself where should you store the new inputs and how?
 
-  onSubmitHandler = () => {}; /* same as handleChange, but this time for submitting a form element, 
+  onSubmitHandler = e => {
+    e.preventDefault();
+    const { addPost } = this.props;
+    const {
+      id,
+      category,
+      shortDescription,
+      description,
+      image,
+      title
+    } = this.state;
+
+    const post = {
+      id,
+      category,
+      shortDescription,
+      description,
+      image,
+      title,
+      comments: []
+    };
+    addPost(post);
+    this.clearStateAfterClose();
+  }; /* same as handleChange, but this time for submitting a form element, 
   what do you want to do after someone submits? think "outside the component"... */
 
   render() {
@@ -63,8 +107,12 @@ class CreateModal extends PureComponent {
         When do you want to open the modal? how do you do this progrmatically? 
         Tip: This must be a boolean, true will open it...
         */}
-        <Dialog className="create-modal" open={status || false}>
-          <form>
+        <Dialog
+          className="create-modal"
+          open={status || false}
+          onClose={this.handleClose}
+        >
+          <form onSubmit={this.onSubmitHandler}>
             <DialogTitle style={{ textAlign: 'center' }}>
               Create Post
             </DialogTitle>
@@ -75,8 +123,8 @@ class CreateModal extends PureComponent {
                 autoFocus
                 label="Title"
                 type="text"
-                value=""
-                onChange={() => {}}
+                value={title}
+                onChange={this.handleChange}
                 fullWidth
                 required
               />
@@ -86,8 +134,8 @@ class CreateModal extends PureComponent {
                 label="Short Description"
                 type="text"
                 multiline
-                value=""
-                onChange={() => {}}
+                value={shortDescription}
+                onChange={this.handleChange}
                 fullWidth
                 required
               />
@@ -97,8 +145,8 @@ class CreateModal extends PureComponent {
                 label="Description"
                 type="text"
                 multiline
-                value=""
-                onChange={() => {}}
+                value={description}
+                onChange={this.handleChange}
                 fullWidth
                 required
               />
@@ -106,17 +154,17 @@ class CreateModal extends PureComponent {
                 <InputLabel htmlFor="category-select">Category</InputLabel>
                 <Select
                   name="category"
-                  value=""
-                  onChange={() => {}}
+                  value={category}
+                  onChange={this.handleChange}
                   input={<Input id="category-select" />}
                   fullWidth
                 >
                   {/* this one is a tricky one, we use map to render components dynamically, 
                   since map is an array method, well... it must be an array...
                   */}
-                  {[].map((categ, key) => (
-                    <MenuItem key={key} value="">
-                      ""
+                  {categories.map((categ, key) => (
+                    <MenuItem key={key} value={`${categ}`}>
+                      {categ}
                     </MenuItem>
                   ))}
                 </Select>
@@ -126,8 +174,8 @@ class CreateModal extends PureComponent {
                 <Input
                   name="image"
                   id="image-url"
-                  value=""
-                  onChange={() => {}}
+                  value={image}
+                  onChange={this.handleChange}
                   endAdornment={
                     <InputAdornment position="end">
                       <Icon>link</Icon>
@@ -137,7 +185,11 @@ class CreateModal extends PureComponent {
               </FormControl>
             </DialogContent>
             <DialogActions>
-              <Button onClick={() => {}} color="primary" type="button">
+              <Button
+                onClick={this.clearStateAfterClose}
+                color="primary"
+                type="button"
+              >
                 Cancel
               </Button>
               <Button color="primary" variant="contained" type="submit">

@@ -36,7 +36,26 @@ class App extends Component {
     https://medium.com/javascript-in-plain-english/javascript-async-await-and-promises-explained-like-youre-five-years-old-61733751e9a5 */
   }
 
-  addPost = newPost => {};
+  addPost = newPost => {
+    const { posts } = this.state;
+    // const isEdit = posts.find(post => post.id === newPost.id);
+    // if (isEdit) {
+    //   const modPosts = posts.map(post =>
+    //     post.id === newPost.id ? newPost : post
+    //   );
+    //   this.setState({
+    //     posts: modPosts,
+    //     editPost: '',
+    //   });
+    // } else {
+    newPost.id = newPost.title;
+    posts.push(newPost);
+    this.setState({
+      posts,
+      editPost: ''
+    });
+    // }
+  };
 
   editPost = id => {};
 
@@ -52,7 +71,11 @@ class App extends Component {
     });
   };
 
-  handleClose = () => {};
+  handleClose = () => {
+    this.setState({
+      openModal: false
+    });
+  };
 
   handleLogin = () => {
     const { inptPass, inptUser, userName, userPass } = this.state;
@@ -84,7 +107,11 @@ class App extends Component {
         ) : (
           <div className="app-container">
             <Header />
-            <CreateModal status={openModal} />
+            <CreateModal
+              status={openModal}
+              handleClose={this.handleClose}
+              addPost={this.addPost}
+            />
             <Routes
               posts={posts}
               deletePost={this.deletePost}
