@@ -20,6 +20,7 @@ class App extends Component {
       inptPass: '',
       userPass: '123',
       isUserNoLogged: true,
+      isDisabled: true,
       editPost: '',
       openModal: false
     };
@@ -101,15 +102,27 @@ class App extends Component {
     }
   };
 
+  // handleDisable = () => {
+  //   const { inptUser, inptPass } = this.state;
+  //   if (inptUser !== '' && inptPass !== '') {
+  //     this.setState({ isDisabled: false });
+  //   } else {
+  //     this.setState({ isDisabled: true });
+  //   }
+  // };
+
   render() {
     const { posts, openModal, editPost } = this.state;
-    const { isUserNoLogged } = this.state;
+    const { isUserNoLogged, inptUser, inptPass } = this.state;
+
     return (
       <div className="App">
         {isUserNoLogged ? (
           <Login
             handleLogin={this.handleLogin}
             handleChange={this.handleChange}
+            inptUser={inptUser}
+            inptPass={inptPass}
           />
         ) : (
           <div className="app-container">

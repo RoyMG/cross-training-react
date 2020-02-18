@@ -1,11 +1,41 @@
 .login-wrapper {
-  height: 100vh;
+  height: 100%;
   text-align: center;
+  padding-top: 50px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 9999;
 }
-.login-wrapper div {
+.login-wrapper .formgrp {
   margin: 10px;
 }
 
-.login-wrapper div label {
+.login-wrapper .formgrp label {
   margin-right: 20px;
+  width: 100px;
+  display: inline-block;
+}
+
+.login-wrapper button {
+  padding: 5px 20px;
+}
+
+.bg-container {
+  background: url(../imgs/bglogin.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  filter: blur(4px);
+  -webkit-filter: blur(4px);
+  height: 100%;
+  width: 100%;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: block;
 }
