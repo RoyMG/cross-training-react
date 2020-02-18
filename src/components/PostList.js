@@ -31,7 +31,7 @@ class PostList extends Component {
 
   render() {
     let { posts } = this.props;
-    const { deletePost, handleOpen } = this.props;
+    const { deletePost, handleOpen, editPost } = this.props;
     let { filter } = this.state;
     posts =
       filter !== 'All'
@@ -51,7 +51,11 @@ class PostList extends Component {
         <div className="posts-list">
           {posts.map(posts => (
             <div key={posts.id} className="post-item">
-              <PostEntry post={posts} deletePost={deletePost} />
+              <PostEntry
+                post={posts}
+                deletePost={deletePost}
+                editPost={editPost}
+              />
             </div>
           ))}
         </div>

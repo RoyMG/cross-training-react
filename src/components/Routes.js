@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import PostList from './PostList';
 import FullPost from './FullPost';
 
-const Routes = ({ posts, deletePost, handleOpen }) => (
+const Routes = ({ posts, deletePost, handleOpen, editPost }) => (
   <Fragment>
     <Router>
       {/* this route should contain your main component, 
@@ -15,7 +15,7 @@ const Routes = ({ posts, deletePost, handleOpen }) => (
           <PostList
             posts={posts}
             deletePost={deletePost}
-            // editPost={editPost}
+            editPost={editPost}
             handleOpen={handleOpen}
           />
         )}

@@ -3,8 +3,6 @@ import { getPosts } from './helpers/getPosts';
 import Routes from './components/Routes';
 import Header from './components/Header';
 import CreateModal from './components/CreateModal';
-import FilterBy from './components/FilterBy';
-import PostList from './components/PostList';
 import Login from './components/Login/Login';
 import './styles/app.css';
 
@@ -22,7 +20,7 @@ class App extends Component {
       inptPass: '',
       userPass: '123',
       isUserNoLogged: true,
-      // editPost: '',
+      editPost: '',
       openModal: false
     };
   }
@@ -38,26 +36,35 @@ class App extends Component {
 
   addPost = newPost => {
     const { posts } = this.state;
-    // const isEdit = posts.find(post => post.id === newPost.id);
-    // if (isEdit) {
-    //   const modPosts = posts.map(post =>
-    //     post.id === newPost.id ? newPost : post
-    //   );
-    //   this.setState({
-    //     posts: modPosts,
-    //     editPost: '',
-    //   });
-    // } else {
-    newPost.id = newPost.title;
-    posts.push(newPost);
-    this.setState({
-      posts,
-      editPost: ''
-    });
-    // }
+    const isEdit = posts.find(post => post.id === newPost.id);
+    if (isEdit) {
+      const modPosts = posts.map(post =>
+        post.id === newPost.id ? newPost : post
+      );
+      this.setState({
+        posts: modPosts,
+        editPost: ''
+      });
+    } else {
+      newPost.id = newPost.title;
+      posts.push(newPost);
+      this.setState({
+        posts,
+        editPost: ''
+      });
+    }
   };
 
-  editPost = id => {};
+  editPost = id => {
+    const { posts } = this.state;
+    const post = posts.filter(inPost => inPost.id === id);
+    this.setState(
+      {
+        editPost: post
+      },
+      () => this.handleOpen()
+    );
+  };
 
   deletePost = id => {
     const { posts } = this.state;
@@ -95,7 +102,7 @@ class App extends Component {
   };
 
   render() {
-    const { posts, openModal } = this.state;
+    const { posts, openModal, editPost } = this.state;
     const { isUserNoLogged } = this.state;
     return (
       <div className="App">
@@ -111,11 +118,13 @@ class App extends Component {
               status={openModal}
               handleClose={this.handleClose}
               addPost={this.addPost}
+              editPost={editPost}
             />
             <Routes
               posts={posts}
               deletePost={this.deletePost}
               handleOpen={this.handleOpen}
+              editPost={this.editPost}
             />
           </div>
         )}

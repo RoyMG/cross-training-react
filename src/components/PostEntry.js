@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from '@material-ui/core';
 import PostActions from './PostActions';
 
-const PostEntry = ({ post, deletePost }) => {
+const PostEntry = ({ post, deletePost, editPost }) => {
   const { title, category, shortDescription, image, comments, id } = post;
   return (
     <div key={id} className="post">
@@ -21,7 +21,7 @@ const PostEntry = ({ post, deletePost }) => {
             <div className="postinfo"> {category}</div>
           </div>
           <div className="post-actions">
-            <PostActions id={id} deletePost={deletePost} />
+            <PostActions id={id} deletePost={deletePost} editPost={editPost} />
           </div>
         </div>
       </div>

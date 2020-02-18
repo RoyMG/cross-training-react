@@ -35,6 +35,21 @@ class CreateModal extends PureComponent {
   }
 
   // component must mount with selected post data, try componentDidMount
+  componentDidUpdate(prevProps) {
+    const { editPost } = this.props;
+    if (editPost !== prevProps.editPost && editPost) {
+      const post = editPost[0];
+      console.log(post);
+      this.setState({
+        id: post.id,
+        title: post.title,
+        shortDescription: post.shortDescription,
+        description: post.description,
+        category: post.category,
+        image: post.image
+      });
+    }
+  }
 
   clearStateAfterClose = () => {
     const { handleClose } = this.props;
